@@ -1,7 +1,7 @@
 import java.util.Random;
 import java.util.Scanner;
 
-public class HammurabiMike {
+public class Hammurabi {
     Random rand = new Random();  // this is an instance variable
     Scanner scan = new Scanner(System.in);
 
@@ -9,7 +9,7 @@ public class HammurabiMike {
 
 
     public static void main(String[] args) { // required in every Java program
-        HammurabiMike m = new HammurabiMike();
+        Hammurabi m = new Hammurabi();
         m.playGame();
         m.startMessage();
     }
@@ -27,6 +27,7 @@ public class HammurabiMike {
         setBushelsPerAcre(0);
         setBushelsHarvested(0);
         setBushelsDestroyed(0);
+
 
     }
 
@@ -130,13 +131,13 @@ public class HammurabiMike {
         System.out.println(sb);
         System.out.println("Type start to continue...");
         if (scan.nextLine().equalsIgnoreCase("start")) {
-            yearStartMessage();
+            printSummary();
         }
         System.exit(0);
 
     }
 
-    public void yearStartMessage() {
+    public void printSummary() {
         StringBuilder sb = new StringBuilder();
 
         sb.append("O great Hammurabi!\n");
