@@ -11,23 +11,24 @@ public class Hammurabi {
     public static void main(String[] args) { // required in every Java program
         Hammurabi m = new Hammurabi();
         m.playGame();
-        m.startMessage();
     }
 
     void playGame() {
         // declare local variables here: grain, population, etc.
         // statements go after the declations
+        Hammurabi m = new Hammurabi();
         setYear(0);
         setPopulation(100);
         setBushels(2800);
         setLandOwned(1000);
         setLandSellPrice(19);
         setStarved(0);
-        setNewPeople(5);
+        setNewPeople(0);
         setBushelsPerAcre(0);
         setBushelsHarvested(0);
         setBushelsDestroyed(0);
 
+        m.finalSummary();
 
     }
 
@@ -171,6 +172,67 @@ public class Hammurabi {
         System.out.println(sb);
 
         //other methods go here
+    }
+
+    public void finalSummary() {
+        Hammurabi m = new Hammurabi();
+        StringBuilder sb = new StringBuilder();
+        double percentStarvedPerYear;
+        percentStarvedPerYear = (getStarved()/10) * 100;
+        double acresPerPerson;
+        acresPerPerson = getLandOwned()/100;
+        sb.append("In your 10-year term of office, ");
+        sb.append(String.format("%.1f", percentStarvedPerYear));
+        sb.append(" percent of the population starved per year" +
+                " on the average, i.e. a total of " + getStarved() + "" +
+                " people died!! \n");
+        sb.append("You started with 10 acres per person and ended" +
+                " with " + acresPerPerson + " acres per person.");
+        System.out.println(sb);
+
+        if ((percentStarvedPerYear < 3) && (acresPerPerson > 10)) {
+            m.bestEnding();
+        }
+        else if ((percentStarvedPerYear >= 3) && (percentStarvedPerYear <= 10) && (acresPerPerson > 9)) {
+            m.goodEnding();
+        }
+        else m.okEnding();
+        //if percentStarvedPerYear is greater than 9, but less than 33 and acresPerPerson less than 9
+
+    }
+
+    public void gameOver() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("You have starved " + getPopulation() + "" +
+                " people in one year!!! \n\nDue to this extreme " +
+                "mismanagement you have not only \nbeen impeached " +
+                "and thrown out of office but you have \nalso been " +
+                "declared National Fink!!!");
+        System.out.print(sb);
+    }
+
+    public void bestEnding() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("A fantastic performance!!! Charlemagne, Disraeli, " +
+                "and Jefferson combined could not have done better!\n\n");
+        System.out.println(sb);
+    }
+
+    public void goodEnding() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Your performance could have been somewhat better, " +
+                "but really wasn’t too bad at all. \n" + (int)(getPopulation()*.2*Math.random()) +
+                " people would dearly like to see you assassinated but" +
+                " we all have our trivial problems.\n\n");
+        System.out.print(sb);
+    }
+
+    public void okEnding() {
+        String s = "Your heavy-handed performance smacks " +
+                "of Nero and Ivan IV. The people (reminding) " +
+                "find you an unpleasant ruler, and, franky, " +
+                "hate your guts!!\n\n";
+        System.out.print(s);
     }
 
     public int askHowManyAcresToBuy(int price, int bushels) {
