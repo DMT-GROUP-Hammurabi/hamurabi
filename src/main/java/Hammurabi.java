@@ -5,7 +5,8 @@ public class Hammurabi {
     Random rand = new Random();  // this is an instance variable
     Scanner scan = new Scanner(System.in);
 
-    int year, population, bushels, landOwned, landSellPrice, starved, newPeople, bushelsPerAcre, bushelsHarvested, bushelsDestroyed;
+    int year, population, bushels, landOwned, landSellPrice, starved,
+            newPeople, bushelsPerAcre, bushelsHarvested, bushelsDestroyed;
 
 
     public static void main(String[] args) { // required in every Java program
@@ -28,7 +29,9 @@ public class Hammurabi {
         setBushelsHarvested(0);
         setBushelsDestroyed(0);
 
-        m.finalSummary();
+        m.startMessage();
+
+
 
     }
 
@@ -118,7 +121,7 @@ public class Hammurabi {
                 "elected for a ten year term of office. Your duties are to \n" +
                 "dispense food, direct farming, and buy and sell land as \n" +
                 "needed to support your people. \n\n" +
-                "Watch out for rat infestiations and the plague! \n\n" +
+                "Watch out for rat infestations and the plague! \n\n" +
                 "Grain is the general currency, measured in bushels. " +
                 "The following will help you in your decisions:\n\n" +
                 "--Each person needs at least 20 bushels of grain per year to survive\n" +

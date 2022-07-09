@@ -92,21 +92,49 @@ public class HammurabiTest {
 
     @Test
     public void setStarved() {
+        Hammurabi h = new Hammurabi();
+
+        h.setStarved(0);
+        h.setStarved(50);
+        h.setStarved(h.getStarved()+1);
+
+        Assert.assertEquals(51, h.getStarved());
     }
 
     @Test
     public void setNewPeople() {
+        Hammurabi h = new Hammurabi();
+
+        h.setNewPeople(0);
+        h.setNewPeople(5);
+
+        Assert.assertEquals(5, h.getNewPeople());
     }
 
     @Test
     public void setBushelsPerAcre() {
+        Hammurabi h = new Hammurabi();
+
+        h.setBushelsPerAcre(18);
+
+        Assert.assertEquals(18, h.getBushelsPerAcre());
     }
 
     @Test
     public void setBushelsHarvested() {
+        Hammurabi h = new Hammurabi();
+
+        h.setBushelsHarvested(4);
+
+        Assert.assertEquals(4, h.getBushelsHarvested());
     }
 
     @Test
     public void setBushelsDestroyed() {
+        Hammurabi h = new Hammurabi();
+
+        h.setBushelsDestroyed(20);
+
+        Assert.assertEquals(20, h.getBushelsDestroyed());
     }
 }
