@@ -1,7 +1,7 @@
 import java.util.Random;
 import java.util.Scanner;
 
-public class HammurabiMike {
+public class HammurabiTen {
     Random rand = new Random();  // this is an instance variable
     Scanner scan = new Scanner(System.in);
 
@@ -11,7 +11,7 @@ public class HammurabiMike {
             "BEEN IMPEACHED AND THROWN OUT OF OFFICE BUT YOU HAVE\n" +
             "ALSO BEEN DECLARED PERSONA NON GRATA!!\n";
     public static void main(String[] args) { // required in every Java program
-        HammurabiMike m = new HammurabiMike();
+        HammurabiTen m = new HammurabiTen();
         m.playGame();
         m.startMessage();
     }
