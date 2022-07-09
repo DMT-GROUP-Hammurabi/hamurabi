@@ -225,6 +225,59 @@ public class Hammurabi {
                 "hate your guts!!\n\n";
         System.out.print(s);
     }
+    public boolean uprising(int population, int howManyPeopleStarved){
+        if (howManyPeopleStarved > (population * .45)){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
+    //Return true if more than 45% of the people starve. (This will cause you to be immediately thrown out of office, ending the game.)
+
+    public void immigrants(int population, int acresOwned, int grainInStorage) {
+
+        int immigrantCount = (20 * acresOwned + grainInStorage) / (100 * population) + 1;
+
+        if (starved == 0) {
+            starved += immigrantCount;
+        }
+    }
+
+//    Nobody will come to the city if people are starving (so don't call this method). If everyone is well fed, compute how many people come to the city as: (20 * _number of acres you have_ + _amount of grain you have in storage_) / (100 * _population_) + 1.
+
+    public int harvest(int acres, int bushelsUsedAsSeed){
+        int min = 1;
+        int max = 6;
+        bushelsUsedAsSeed = min + rand.nextInt(max);
+        return acres * bushelsUsedAsSeed;
+    }
+
+    //  Choose a random integer between 1 and 6, inclusive. Each acre that was planted with seed will yield this many bushels of grain. (Example: if you planted 50 acres, and your number is 3, you harvest 150 bushels of grain). Return the number of bushels harvested.
+
+    public int grainEatenByRats(int bushels){
+        int minPercent = 10;
+        int maxPercent = 30;
+        int ratChances = rand.nextInt(99);
+        int grainPercent = minPercent + rand.nextInt (maxPercent);
+        int grainEaten = bushels * (grainPercent/10);
+        if (ratChances < 40){
+            return grainEaten;
+        }else{
+            return 0;
+        }
+    }
+
+    //   There is a 40% chance that you will have a rat infestation. When this happens, rats will eat somewhere between 10% and 30% of your grain. Return the amount of grain eaten by rats (possibly zero).
+
+    public int newCostOfLand(){
+        int minCost = 17;
+        int newCost = rand.nextInt(23);
+        return newCost;
+    }
+
+    //   The price of land is random, and ranges from 17 to 23 bushels per acre. Return the new price for the next set of decisions the player has to make. (The player will need this information in order to buy or sell land.)
 
     public int askHowManyAcresToBuy(int price, int bushels) {
         return 0;
