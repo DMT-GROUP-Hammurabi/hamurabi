@@ -24,9 +24,11 @@ public class HammurabiMike {
         setLandSellPrice(19);
         setStarved(0);
         setNewPeople(5);
-        setBushelsPerAcre(0);
+        setBushelsPerAcre(19);
         setBushelsHarvested(0);
         setBushelsDestroyed(0);
+
+       //askHowManyAcresToBuy();
 
     }
 
@@ -173,6 +175,23 @@ public class HammurabiMike {
     }
 
     public int askHowManyAcresToBuy(int price, int bushels) {
-        return 0;
+        price = getBushelsPerAcre();
+        bushels = getBushels();
+        Scanner input = new Scanner(System.in);
+        System.out.println("HOW MANY ACRES DO YOU WANT TO BUY?");
+        int acresToBuy = input.nextInt();
+
+
+        if(acresToBuy * price > bushels){
+            System.out.println("HAMURABI:  THINK AGAIN. YOU HAVE ONLY\n" +
+                    getBushels() + " BUSHELS OF GRAIN. NOW THEN,");
+        }
+
+
+        return acresToBuy;
+
+
     }
+
+
 }
