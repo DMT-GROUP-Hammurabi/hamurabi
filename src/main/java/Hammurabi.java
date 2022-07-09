@@ -18,20 +18,8 @@ public class Hammurabi {
         // declare local variables here: grain, population, etc.
         // statements go after the declations
         Hammurabi m = new Hammurabi();
-        setYear(0);
-        setPopulation(100);
-        setBushels(2800);
-        setLandOwned(1000);
-        setLandSellPrice(19);
-        setStarved(0);
-        setNewPeople(0);
-        setBushelsPerAcre(0);
-        setBushelsHarvested(0);
-        setBushelsDestroyed(0);
-
+        m.setStart();
         m.startMessage();
-
-
 
     }
 
@@ -117,9 +105,9 @@ public class Hammurabi {
 
     public void startMessage() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Congratulations, you are the newest ruler of ancient Sumer, \n" +
-                "elected for a ten year term of office. Your duties are to \n" +
-                "dispense food, direct farming, and buy and sell land as \n" +
+        sb.append("Congratulations, you are the newest ruler of ancient Sumer, " +
+                "elected for a ten year term of office. \nYour duties are to " +
+                "dispense food, direct farming, and buy and sell land as " +
                 "needed to support your people. \n\n" +
                 "Watch out for rat infestations and the plague! \n\n" +
                 "Grain is the general currency, measured in bushels. " +
@@ -130,11 +118,11 @@ public class Hammurabi {
                 "--The market price for land fluctuates yearly\n\n" +
                 "Rule wisely and you will be showered with appreciation \n" +
                 "at the end of your term. \n" +
-                "Rule poorly and you will be kicked out of office!");
+                "Rule poorly and you will be kicked out of office!\n");
 
         System.out.println(sb);
-        System.out.println("Type start to continue...");
-        if (scan.nextLine().equalsIgnoreCase("start")) {
+        System.out.println("Type go to start...");
+        if (scan.nextLine().equalsIgnoreCase("go")) {
             printSummary();
         }
         System.exit(0);
@@ -232,7 +220,7 @@ public class Hammurabi {
 
     public void okEnding() {
         String s = "Your heavy-handed performance smacks " +
-                "of Nero and Ivan IV. The people (reminding) " +
+                "of Nero and Ivan IV. The people (remaining) " +
                 "find you an unpleasant ruler, and, franky, " +
                 "hate your guts!!\n\n";
         System.out.print(s);
@@ -240,5 +228,17 @@ public class Hammurabi {
 
     public int askHowManyAcresToBuy(int price, int bushels) {
         return 0;
+    }
+    public void setStart() {
+        setYear(1);
+        setPopulation(100);
+        setBushels(2800);
+        setLandOwned(1000);
+        setLandSellPrice(19);
+        setStarved(0);
+        setNewPeople(5);
+        setBushelsPerAcre(0);
+        setBushelsHarvested(3000);
+        setBushelsDestroyed(200);
     }
 }
