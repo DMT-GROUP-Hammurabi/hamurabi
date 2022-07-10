@@ -5,16 +5,16 @@ public class HammurabiMike {
     Random rand = new Random();  // this is an instance variable
     Scanner scan = new Scanner(System.in);
 
-    int year;
-    int population;
-    int bushels;
-    int landOwned;
-    int landSellPrice;
-    int starved;
-    int newPeople;
-    int bushelsPerAcre;
+    int year = 1;
+    int population = 100;
+    int bushels = 2800;
+    int landOwned = 1000;
+    int landPrice = 19;
+    int starved = 0;
+    int newPeople = 5;
+    int bushelsPerAcre = 3;
     int bushelsHarvested;
-    int bushelsDestroyed;
+    int bushelsDestroyed = 200;
     int fed;
     int bushelsEaten;
     int bushelsFed;
@@ -23,23 +23,23 @@ public class HammurabiMike {
 
 
     public static void main(String[] args) { // required in every Java program
-        Hammurabi m = new Hammurabi();
+        HammurabiMike m = new HammurabiMike();
         m.playGame();
     }
 
     void playGame() {
         // declare local variables here: grain, population, etc.
         // statements go after the declations
-        Hammurabi m = new Hammurabi();
-        // set initial values;
-        m.setStart();
+        HammurabiMike m = new HammurabiMike();
         m.startMessage();
-        //get user inputs
-//        m.askHowManyAcresToBuy(getBushelsPerAcre(), getBushels());
-//        m.askHowManyAcresToSell(getLandOwned());
-//        m.askHowMuchGrainToFeedPeople(getBushels());
-//        m.askHowManyAcresToPlant(getLandOwned(), getPopulation(), getBushels());
-        //set values for next year based on rolls
+        while (year <= 10) {
+            m.printSummary();
+            //get user inputs
+            m.askHowManyAcresToBuy(landPrice, bushels);
+            m.askHowManyAcresToSell(landOwned);
+            m.askHowMuchGrainToFeedPeople(bushels);
+            m.askHowManyAcresToPlant(landOwned, population, bushels);
+            //set values for next year based on rolls
 //        m.plagueDeaths(getPopulation());
 //        m.starvationDeaths(getPopulation(), getBushelsFed());
 //        m.uprising(getPopulation(), getStarved());
@@ -47,7 +47,8 @@ public class HammurabiMike {
 //        m.harvest(getLandOwned(), getBushelsUsedAsSeed());
 //        m.grainEatenByRats(getBushels());
 //        m.newCostOfLand();
-
+            year++;
+        }
     }
 
     String FINK = "DUE TO THIS EXTREME MISMANAGEMENT YOU HAVE NOT ONLY\n" +
@@ -78,6 +79,9 @@ public class HammurabiMike {
     }
 
     public void printSummary() {
+
+        starved = population - fed;
+
         StringBuilder sb = new StringBuilder();
 
         sb.append("O great Hammurabi!\n");
@@ -106,9 +110,14 @@ public class HammurabiMike {
         sb.append(landOwned);
         sb.append(" acres of land.\n");
         sb.append("Land is currently worth ");
-        sb.append(landSellPrice);
+        sb.append(landPrice);
         sb.append(" bushels per acre.\n");
-        System.out.println(sb);
+
+
+        if (fed == 0 || starved >= population/2) {
+            System.out.println("\n\nYOU STARVED " + starved + " PEOPLE IN ONE YEAR!\n\n" + FINK);
+        }
+        else System.out.println(sb);
 
         //other methods go here
     }
@@ -165,100 +174,111 @@ public class HammurabiMike {
     }
 
 
-    public int askHowManyAcresToBuy(int price, int bushels) {
-        price = bushelsPerAcre;
-        bushels = bushels;
+    public void askHowManyAcresToBuy(int landPrice, int bushels) {
 
-        //Scanner input = new Scanner(System.in);
-        System.out.println("HOW MANY ACRES DO YOU WANT TO BUY?");
-        int acresToBuy = getUserInput();
-        if (acresToBuy == 0 ) {askAgain();}
+        while(true) {
+            //Scanner input = new Scanner(System.in);
+            System.out.println("HOW MANY ACRES DO YOU WANT TO BUY?");
+            int acresToBuy = getUserInput();
+            if (acresToBuy == 0) {
+                break;
+            }
+            if (acresToBuy * landPrice > bushels) {
+                System.out.println("HAMURABI:  THINK AGAIN. YOU HAVE ONLY\n" +
+                        bushels + " BUSHELS OF GRAIN. NOW THEN,");
+            }
 
-        if(acresToBuy * price > bushels){
-            System.out.println("HAMURABI:  THINK AGAIN. YOU HAVE ONLY\n" +
-                    bushels + " BUSHELS OF GRAIN. NOW THEN,");
+            if (acresToBuy * landPrice < bushels) {
+
+                landOwned += acresToBuy;
+                bushels -= acresToBuy * landPrice;
+                break;
+            }
+
         }
-
-        if (acresToBuy * price < bushels){
-
-            landOwned += acresToBuy;
-            bushels -= acresToBuy * price;
-        }
-        return landOwned;
 
 
     }
 
-    public int askHowManyAcresToSell (int acresOwned){
+    public void askHowManyAcresToSell (int landOwned){
 
-        acresOwned = landOwned;
-        System.out.println("HOW MANY ACRES DO YOU WANT TO SELL?");
-        int acresToSell = scan.nextInt();
+        while (true) {
+            System.out.println("HOW MANY ACRES DO YOU WANT TO SELL?");
+            int acresToSell = scan.nextInt();
 
-        if (acresToSell <= 0 ) {askAgain();}
+            if (acresToSell > landOwned) {
+                System.out.println("HAMURABI:  THINK AGAIN. YOU HAVE ONLY\n" +
+                        bushels + " BUSHELS OF GRAIN. NOW THEN,");
+                askHowManyAcresToSell(landOwned);
+            }
 
-        if (acresToSell > landOwned){ System.out.println("HAMURABI:  THINK AGAIN. YOU HAVE ONLY\n" +
-                bushels + " BUSHELS OF GRAIN. NOW THEN,");}
+            if (acresToSell <= bushels) {
 
-        if(acresToSell <= bushels){
+                landOwned -= acresToSell;
+                bushels += acresToSell * bushelsPerAcre;
+                break;
 
-            landOwned -= acresToSell;
-            bushels += acresToSell * bushelsPerAcre;
-
+            }
         }
-
-        return landOwned;
     }
 
-    public int askHowMuchGrainToFeedPeople(int bushels){
+    public void askHowMuchGrainToFeedPeople(int bushels){
 
-        System.out.println("\nHOW MANY BUSHELS DO YOU WISH TO FEED YOUR PEOPLE?  ");
-        int amountOfBushels = scan.nextInt();
+        while (true) {
+            System.out.println("\nHOW MANY BUSHELS DO YOU WISH TO FEED YOUR PEOPLE?  ");
+            int amountOfBushels = scan.nextInt();
 
-        if (amountOfBushels <= 0)
-            askAgain();
-        if (amountOfBushels > bushels){
-            System.out.println("HAMURABI:  THINK AGAIN. YOU HAVE ONLY\n" +
-                    bushels + " BUSHELS OF GRAIN. NOW THEN,");}
+            if (amountOfBushels <= 0)
+                if (amountOfBushels > bushels) {
+                    System.out.println("HAMURABI:  THINK AGAIN. YOU HAVE ONLY\n" +
+                            bushels + " BUSHELS OF GRAIN. NOW THEN,");
+                }
 
-        if (amountOfBushels < bushels){
-            fed = amountOfBushels / 20;
-            bushels -= amountOfBushels;
+            if (amountOfBushels < bushels) {
+                fed = amountOfBushels / 20;
+                bushels -= amountOfBushels;
+                break;
+            }
         }
-        return fed;
-
     }
 
-    public int askHowManyAcresToPlant(int acresOwned, int population, int bushels){
-        System.out.print("\nHOW MANY ACRES DO YOU WISH TO PLANT WITH GRAIN?");
-        int amountOfAcres = scan.nextInt();
+    public void askHowManyAcresToPlant(int landOwned, int population, int bushels){
+        while (true) {
+            System.out.print("\nHOW MANY ACRES DO YOU WISH TO PLANT WITH GRAIN?");
+            int amountOfAcres = scan.nextInt();
 
-        if (amountOfAcres <= 0)
-            askAgain();
-        if (amountOfAcres > landOwned)
-            System.out.println("HAMURABI:  THINK AGAIN. YOU OWN ONLY " + landOwned + " ACRES. NOW THEN,");
-        if (amountOfAcres / 2 > bushels)
-            System.out.println("HAMURABI:  THINK AGAIN. YOU HAVE ONLY\n" +
-                    bushels + " BUSHELS OF GRAIN. NOW THEN,");
-        if (amountOfAcres > population * 10)
-            System.out.println("BUT YOU HAVE ONLY" + population + "PEOPLE TO TEND THE FIELDS. NOW THEN,");
+            if (amountOfAcres < 0) {
+                System.out.println("O GREAT HAMMURABI, SURELY YOU JEST! NOW THEN,");
+                askHowManyAcresToPlant(landOwned, population, bushels);
+            }
+            if (amountOfAcres > landOwned) {
+                System.out.println("HAMURABI:  THINK AGAIN. YOU OWN ONLY " + landOwned + " ACRES. NOW THEN,");
+                askHowManyAcresToPlant(landOwned, population, bushels);
+            }
+            if (amountOfAcres > bushels) {
+                System.out.println("HAMURABI:  THINK AGAIN. YOU HAVE ONLY\n" +
+                        bushels + " BUSHELS OF GRAIN. NOW THEN,");
+                askHowManyAcresToPlant(landOwned, population, bushels);
+            }
+            if (amountOfAcres > population * 10) {
+                System.out.println("BUT YOU HAVE ONLY" + population + "PEOPLE TO TEND THE FIELDS. NOW THEN,");
+                askHowManyAcresToPlant(landOwned, population, bushels);
+            }
 
-        if (amountOfAcres < landOwned || amountOfAcres / 2 < bushels || amountOfAcres < population * 10) {
-            bushelsEaten = bushels - bushelsHarvested ;
-            bushels -= amountOfAcres / 2;
-            int yield = (int) (Math.random() * 5 + 1);
-            bushelsHarvested = amountOfAcres * yield;
-            amountOfAcres = (int) (Math.random() * 5 + 1);
-            if (amountOfAcres % 2 != 1)
-                bushelsEaten = (bushels / amountOfAcres);
-            else
-                bushelsEaten = 0;
-            bushels += (bushelsHarvested - bushelsDestroyed);
-
-
+            if (amountOfAcres >= 0 || amountOfAcres < landOwned || amountOfAcres / 2 < bushels || amountOfAcres < population * 10) {
+                bushelsEaten = bushels - bushelsHarvested;
+                bushels -= amountOfAcres / 2;
+                int yield = (int) (Math.random() * 5 + 1);
+                bushelsHarvested = amountOfAcres * yield;
+                amountOfAcres = (int) (Math.random() * 5 + 1);
+                if (amountOfAcres % 2 != 1)
+                    bushelsEaten = (bushels / amountOfAcres);
+                else
+                    bushelsEaten = 0;
+                bushels += (bushelsHarvested - bushelsDestroyed);
+                break;
+            }
         }
-
-        return bushels;
     }
 
     int plagueDeaths(int population){
@@ -276,9 +296,9 @@ public class HammurabiMike {
         return population - (bushelsEaten / 20);
     }
 
-    public void askAgain() {
-        System.out.print("Hammurabi, I'm afraid that's not possible. Please try again.");
-    }
+//    public void askAgain() {
+//        System.out.print("Hammurabi, I'm afraid that's not possible. Please try again.\n");
+//    }
 
     public boolean uprising(int population, int howManyPeopleStarved){
         if (howManyPeopleStarved > (population * .45)){
