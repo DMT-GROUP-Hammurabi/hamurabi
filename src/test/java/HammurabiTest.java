@@ -1,9 +1,16 @@
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.io.StringBufferInputStream;
+import java.util.Scanner;
+
 import static org.junit.Assert.*;
 
 public class HammurabiTest {
+
+    Scanner scan = new Scanner(System.in);
 
     @org.junit.Test
     public void setYearTest() {
@@ -137,4 +144,16 @@ public class HammurabiTest {
 
         Assert.assertEquals(20, h.getBushelsDestroyed());
     }
+
+//    @Test
+//    public void askHowManyAcresToBuy() {
+//        Hammurabi h = new Hammurabi();
+//
+//        h.setBushels(1000);
+//        h.setLandOwned(0);
+//        h.askHowManyAcresToBuy(10, 1000);
+//        System.in.read(1024);
+//
+//        Assert.assertEquals(100, h.getLandOwned());
+//    }
 }
