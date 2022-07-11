@@ -8,11 +8,11 @@ public class HammurabiEngine {
     //  Each acre that was planted with seed will yield this many bushels of grain.
     //  (Example: if you planted 50 acres, and your number is 3, you harvest 150 bushels of grain).
     //  Return the number of bushels harvested.
-    public int harvest(int acres, int bushelsUsedAsSeed){
+    public static int harvest(int acres, int bushelsUsedAsSeed){
         int min = 1;
-        int max = 6;
+        int max = 5;
         bushelsUsedAsSeed = min + rand.nextInt(max);
-        return acres * bushelsUsedAsSeed;
+        return bushelsUsedAsSeed;
     }
 
     //    Nobody will come to the city if people are starving (so don't call this method).
@@ -51,14 +51,14 @@ public class HammurabiEngine {
     //   There is a 40% chance that you will have a rat infestation. When this happens,
     //   rats will eat somewhere between 10% and 30% of your grain.
     //   Return the amount of grain eaten by rats (possibly zero).
-    public int grainEatenByRats(int bushels){
+    public static int grainEatenByRats(int bushels){
         int minPercent = 10;
-        int maxPercent = 30;
+        int maxPercent = 20;
         int ratChances = rand.nextInt(99);
         int grainPercent = minPercent + rand.nextInt (maxPercent);
-        int grainEaten = bushels * (grainPercent/10);
+        double grainEaten = bushels * grainPercent * 0.01;
         if (ratChances < 40){
-            return grainEaten;
+            return (int)grainEaten;
         }else{
             return 0;
         }
@@ -67,9 +67,9 @@ public class HammurabiEngine {
     //   The price of land is random, and ranges from 17 to 23 bushels per acre.
     //   Return the new price for the next set of decisions the player has to make.
     //   (The player will need this information in order to buy or sell land.)
-    public int newCostOfLand(){
+    public static int newCostOfLand(){
         int minCost = 17;
-        int newCost = rand.nextInt(23);
+        int newCost = minCost + rand.nextInt(9);
         return newCost;
     }
 }
