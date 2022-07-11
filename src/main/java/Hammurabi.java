@@ -206,12 +206,16 @@ public class Hammurabi {
         while (true) {
             int amountOfBushels = getNumber("\nBUSHELS: " + bushels +"\nACRES: " + acres + "\nHOW MANY BUSHELS DO YOU WISH TO FEED YOUR PEOPLE? ");
 
-            if (amountOfBushels > bushels) {
+            if (amountOfBushels < 0) {
+                System.out.println("O GREAT HAMMURABI, SURELY YOU JEST! *NERVOUS LAUGHTER* NOW THEN,");
+            }
+
+            else if (amountOfBushels > bushels) {
                 System.out.println("HAMURABI:  THINK AGAIN. YOU HAVE ONLY\n" +
                         bushels + " BUSHELS OF GRAIN. NOW THEN,");
             }
 
-            if (amountOfBushels < bushels) {
+            else if (amountOfBushels < bushels) {
                 this.bushelsFedToPeople = amountOfBushels;
                 bushels -= amountOfBushels;
                 break;
@@ -225,22 +229,18 @@ public class Hammurabi {
 
             if (amountOfAcres < 0) {
                 System.out.println("O GREAT HAMMURABI, SURELY YOU JEST! NOW THEN,");
-                askHowManyAcresToPlant();
             }
-            if (amountOfAcres > acres) {
+            else if (amountOfAcres > acres) {
                 System.out.println("HAMURABI:  THINK AGAIN. YOU OWN ONLY " + acres + " ACRES. NOW THEN,");
-                askHowManyAcresToPlant();
             }
-            if (amountOfAcres > bushels) {
+            else if (amountOfAcres > bushels) {
                 System.out.println("HAMURABI:  THINK AGAIN. YOU HAVE ONLY\n" +
                         bushels + " BUSHELS OF GRAIN. NOW THEN,");
-                askHowManyAcresToPlant();
             }
-            if (amountOfAcres > population * 10) {
-                System.out.println("BUT YOU HAVE ONLY" + population + "PEOPLE TO TEND THE FIELDS. NOW THEN,");
-                askHowManyAcresToPlant();
+            else if (amountOfAcres > population * 10) {
+                System.out.println("BUT YOU HAVE ONLY " + population + " PEOPLE TO TEND THE FIELDS. NOW THEN,");
             }
-            else if (amountOfAcres >= 0 || amountOfAcres < acres || amountOfAcres / 2 < bushels || amountOfAcres < population * 10) {
+            else  {
                 bushelsUsedAsSeed = amountOfAcres;
                 bushels -= amountOfAcres;
                 break;

@@ -69,7 +69,7 @@ public class HammurabiEngine {
     //   (The player will need this information in order to buy or sell land.)
     public static int newCostOfLand(){
         int minCost = 17;
-        int newCost = minCost + rand.nextInt(9);
+        int newCost = minCost + rand.nextInt(6);
         return newCost;
     }
 }
